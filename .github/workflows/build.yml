@@ -22,18 +22,21 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Install Dependencies
+      - name: Install Project Dependencies
         run: |
           npm ci
 
-      - name: Build Angular Prod Project
+      - name: Install Capacitor Android Package
+        run: |
+          npm install @capacitor/android@latest @capacitor/cli@latest
+
+      - name: Build Web Application
         run: |
           npm run build:prod
 
-      - name: Add and Sync Android Platform
+      - name: Initialize and Sync Capacitor
         run: |
-          npx @capacitor/cli add android || true
-          npx @capacitor/cli sync android
+          npx cap sync android
 
       - name: Build Android App with Gradle
         run: |
