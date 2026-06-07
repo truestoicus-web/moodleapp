@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget android-versionCode="51100" id="com.moodle.moodlemobile" ios-CFBundleVersion="5.1.1.0" version="5.1.1" versionCode="51100" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Stoicus SDO</name>
+    <preference name="MoodleDefaultSiteURL" value="https://stoicus.ru" />
+    <preference name="MoodleOnlyAllowListedSites" value="true" />
+    <preference name="MoodleAppName" value="Stoicus SDO" />
     <description>Moodle official app</description>
     <author email="mobile@moodle.com" href="http://moodle.com">Moodle Mobile team</author>
     <content src="index.html" />
     <access origin="*" />
-    <preference name="MoodleDefaultSiteURL" value="https://stoicus.ru" />
-    <preference name="MoodleOnlyAllowListedSites" value="true" />
-    <preference name="MoodleAppName" value="Stoicus SDO" />
     <access launch-external="yes" origin="tel:*" />
     <access launch-external="yes" origin="mailto:*" />
     <access launch-external="yes" origin="geo:*" />
