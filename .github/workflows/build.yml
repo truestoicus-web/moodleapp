@@ -34,17 +34,17 @@ jobs:
         run: |
           npm run prod --prefix cordova-plugin-moodleapp
 
-      - name: Inject Target Site URL and Hardcode Configurations
+      - name: Inject Configuration via Node
         run: |
           node -e "
           const fs = require('fs');
           
-          // Создаем принудительный config.json в корне сборщика ассетов
           const configData = {
             app_id: 'com.moodle.moodlemobile',
             appname: 'Stoicus SDO',
-            siteurl: 'https://exam.stoicus.ru',
+            siteurl: 'https://stoicus.ru',
             onlyallowlistedsites: true,
+            typeoflogin: 1,
             customurlscheme: 'stoicussdo',
             default_lang: 'ru',
             forcedefaultlanguage: true,
@@ -52,7 +52,6 @@ jobs:
             sites: []
           };
           
-          // Раскладываем его по всем возможным путям, откуда Webpack и Cordova дергают ассеты
           const paths = [
             'src/assets/config.json',
             'www/assets/config.json',
@@ -63,7 +62,6 @@ jobs:
             const dir = p.substring(0, p.lastIndexOf('/'));
             if (dir && !fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
             fs.writeFileSync(p, JSON.stringify(configData, null, 4), 'utf8');
-            console.log('Конфиг принудительно внедрен по пути:', p);
           });
           "
 
