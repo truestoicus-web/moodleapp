@@ -26,17 +26,17 @@ jobs:
         run: |
           npm ci
 
-      - name: Install Capacitor Core Android Packages
+      - name: Setup Moodle App Configuration
         run: |
-          npm install @capacitor/android@latest @capacitor/cli@latest
+          npm run setup
 
-      - name: Build and Initialize Android Platform
+      - name: Compile Production Web Code
         run: |
           npm run build:prod
-          npx cap add android
 
-      - name: Sync Web Code to Android
+      - name: Add and Sync Android Platform
         run: |
+          npx cap add android || true
           npx cap sync android
 
       - name: Build Android App with Gradle
