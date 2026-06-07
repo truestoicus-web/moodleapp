@@ -43,8 +43,12 @@ jobs:
           ionic cordova platform add android --no-interactive
           ionic cordova build android --prod --no-interactive
 
-      - name: Upload APK Artifact
+      - name: Find and Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Stoicus-SDO-App
-          path: platforms/android/app/build/outputs/apk/debug/app-debug.ap
+          name: Stoicus-SDO-App-v5.1.x
+          path: |
+            platforms/android/app/build/outputs/apk/**/*.apk
+            platforms/android/.**/*.apk
+            **/*.apk
+          if-no-files-found: error
