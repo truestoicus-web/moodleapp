@@ -11,35 +11,26 @@ jobs:
         with:
           ref: v5.1.x
 
-      - name: Setup Node.js (v22)
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22.17.0'
 
-      - name: Setup Java JDK (v17)
+      - name: Setup Java JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Install Project Dependencies
+      - name: Install Dependencies
         run: |
-          npm ci
+          npm ci --no-audit
 
-      - name: Setup Moodle App Configuration
+      - name: Compile Moodle Production App for Android
         run: |
-          npm run setup
+          npm run prod:android
 
-      - name: Compile Production Web Code
-        run: |
-          npm run build:prod
-
-      - name: Add and Sync Android Platform
-        run: |
-          npx cap add android || true
-          npx cap sync android
-
-      - name: Build Android App with Gradle
+      - name: Build App with Gradle
         run: |
           cd android && ./gradlew assembleDebug
 
