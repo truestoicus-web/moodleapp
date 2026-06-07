@@ -22,9 +22,9 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Install Global Packages (Ionic & Cordova)
+      - name: Install Global Packages
         run: |
-          npm install -g @ionic/cli cordova
+          npm install -g @ionic/cli cordova cordova-res
 
       - name: Install Dependencies
         run: |
@@ -38,9 +38,13 @@ jobs:
         run: |
           npm run build:prod
 
-      - name: Process Resources and Build Package
+      - name: Generate and Inject Android Resources
         run: |
           ionic cordova platform add android --no-interactive
+          cordova-res android --skip-config --copy
+
+      - name: Compile Application Package
+        run: |
           ionic cordova build android --prod --no-interactive
 
       - name: Find and Upload APK Artifact
