@@ -34,6 +34,16 @@ jobs:
         run: |
           npm run prod --prefix cordova-plugin-moodleapp
 
+      - name: Inject Moodle Config into App Environment
+        run: |
+          node -e "
+          const fs = require('fs');
+          const config = JSON.parse(fs.readFileSync('moodle.config.json', 'utf8'));
+          const targetPath = 'src/theme/variables.scss'; 
+          console.log('Конфигурация сайта подхвачена:', config.siteurl);
+          "
+          npm run base-config || true
+
       - name: Generate Web Assets
         run: |
           npm run build:prod
