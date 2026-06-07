@@ -41,7 +41,7 @@ jobs:
       - name: Generate and Inject Android Resources
         run: |
           ionic cordova platform add android --no-interactive
-          cordova-res android --skip-config --copy
+          cordova-res android --type=icon --skip-config --copy || true
 
       - name: Compile Application Package
         run: |
