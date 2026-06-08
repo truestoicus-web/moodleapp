@@ -34,60 +34,40 @@ jobs:
         run: |
           npm run prod --prefix cordova-plugin-moodleapp
 
-      - name: Inject Configuration via Node
+      - name: Overwrite Target moodle.config.json
         run: |
           node -e "
           const fs = require('fs');
+          const path = 'moodle.config.json';
           
-          const configData = {
-            app_id: 'com.moodle.moodlemobile',
-            appname: 'Stoicus SDO',
-            siteurl: 'https://exam.stoicus.ru',
-            onlyallowlistedsites: true,
-            typeoflogin: 1,
-            customurlscheme: 'moodlemobile',
-            default_lang: 'ru',
-            forcedefaultlanguage: true,
-            demo_sites: {},
-            sites: []
-          };
-          
-          const paths = [
-            'src/assets/config.json',
-            'www/assets/config.json',
-            'moodle.config.json'
-          ];
-          
-          paths.forEach(p => {
-            const dir = p.substring(0, p.lastIndexOf('/'));
-            if (dir && !fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-            fs.writeFileSync(p, JSON.stringify(configData, null, 4), 'utf8');
-          });
-          "
-
-      - name: Initialize Cordova Android Platform
-        run: |
-          ionic cordova platform add android --no-interactive
-
-      - name: Inject Network Security Config for Android
-        run: |
-          node -e "
-          const fs = require('fs');
-          const path = 'platforms/android/app/src/main/AndroidManifest.xml';
+          let configData = {};
           if (fs.existsSync(path)) {
-              let manifest = fs.readFileSync(path, 'utf8');
-              // Принудительно разрешаем cleartext трафик в манифесте приложения
-              if (!manifest.includes('android:usesCleartextTraffic=\"true\"')) {
-                  manifest = manifest.replace('<application', '<application android:usesCleartextTraffic=\"true\"');
-                  fs.writeFileSync(path, manifest, 'utf8');
-                  console.log('Нативная сетевая безопасность Android успешно пропатчена!');
-              }
+              // Читаем дефолтный массив настроек, чтобы не сломать системные ключи
+              configData = JSON.parse(fs.readFileSync(path, 'utf8'));
           }
+          
+          // Жестко перезаписываем параметры под твою песочницу
+          configData.app_id = 'com.moodle.moodlemobile';
+          configData.appname = 'Stoicus SDO';
+          configData.siteurl = 'https://exam.stoicus.ru';
+          configData.onlyallowlistedsites = true;
+          configData.typeoflogin = 0;
+          configData.customurlscheme = 'moodlemobile';
+          configData.default_lang = 'ru';
+          configData.forcedefaultlanguage = true;
+          configData.sites = [];
+          
+          fs.writeFileSync(path, JSON.stringify(configData, null, 4), 'utf8');
+          console.log('Корневой moodle.config.json успешно перезаписан!');
           "
 
       - name: Run Production Web Build
         run: |
           npm run build:prod
+
+      - name: Initialize Cordova Android Platform
+        run: |
+          ionic cordova platform add android --no-interactive
 
       - name: Compile Application Package
         run: |
