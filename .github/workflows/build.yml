@@ -45,7 +45,7 @@ jobs:
             siteurl: 'https://exam.stoicus.ru',
             onlyallowlistedsites: true,
             typeoflogin: 1,
-            customurlscheme: 'stoicussdo',
+            customurlscheme: 'moodlemobile',
             default_lang: 'ru',
             forcedefaultlanguage: true,
             demo_sites: {},
