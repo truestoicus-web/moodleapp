@@ -42,11 +42,9 @@ jobs:
           
           let configData = {};
           if (fs.existsSync(path)) {
-              // Читаем дефолтный массив настроек, чтобы не сломать системные ключи
               configData = JSON.parse(fs.readFileSync(path, 'utf8'));
           }
           
-          // Жестко перезаписываем параметры под твою песочницу
           configData.app_id = 'com.moodle.moodlemobile';
           configData.appname = 'Stoicus SDO';
           configData.siteurl = 'https://exam.stoicus.ru';
@@ -55,10 +53,19 @@ jobs:
           configData.customurlscheme = 'moodlemobile';
           configData.default_lang = 'ru';
           configData.forcedefaultlanguage = true;
-          configData.sites = [];
+          
+          // Внедряем предопределенный сайт, чтобы приложение сразу открывало форму логина
+          configData.sites = [
+              {
+                  \"id\": \"stoicussdo\",
+                  \"name\": \"Stoicus SDO\",
+                  \"url\": \"https://exam.stoicus.ru\",
+                  \"logo\": \"assets/img/logo.png\"
+              }
+          ];
           
           fs.writeFileSync(path, JSON.stringify(configData, null, 4), 'utf8');
-          console.log('Корневой moodle.config.json успешно перезаписан!');
+          console.log('Конфигурация moodle.config.json с предопределенным сайтом успешно записана!');
           "
 
       - name: Run Production Web Build
