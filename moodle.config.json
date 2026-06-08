@@ -36,7 +36,7 @@
     "showTopLogo": "hidden",
     "ioswebviewscheme": "moodleappfs",
     "appstores": {
-        "android": "com.examstoicus.moodleapp"
+        "android": "com.moodle.moodlemobile"
     },
     "wsrequestqueuelimit": 10,
     "wsrequestqueuedelay": 100,
