@@ -65,19 +65,29 @@ jobs:
           });
           "
 
-      - name: Force Remove Push Plugin from Project
+      - name: Initialize Cordova Android Platform
         run: |
-          # Нагло вырезаем плагин уведомлений из конфигурации Cordova и package.json, чтобы он не компилировался в APK
-          cordova plugin remove phonegap-plugin-push --save || true
-          cordova plugin remove cordova-plugin-push || true
+          ionic cordova platform add android --no-interactive
+
+      - name: Inject Network Security Config for Android
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = 'platforms/android/app/src/main/AndroidManifest.xml';
+          if (fs.existsSync(path)) {
+              let manifest = fs.readFileSync(path, 'utf8');
+              // Принудительно разрешаем cleartext трафик в манифесте приложения
+              if (!manifest.includes('android:usesCleartextTraffic=\"true\"')) {
+                  manifest = manifest.replace('<application', '<application android:usesCleartextTraffic=\"true\"');
+                  fs.writeFileSync(path, manifest, 'utf8');
+                  console.log('Нативная сетевая безопасность Android успешно пропатчена!');
+              }
+          }
+          "
 
       - name: Run Production Web Build
         run: |
           npm run build:prod
-
-      - name: Initialize Cordova Android Platform
-        run: |
-          ionic cordova platform add android --no-interactive
 
       - name: Compile Application Package
         run: |
