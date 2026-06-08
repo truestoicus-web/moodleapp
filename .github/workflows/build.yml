@@ -44,7 +44,7 @@ jobs:
             appname: 'Stoicus SDO',
             siteurl: 'https://exam.stoicus.ru',
             onlyallowlistedsites: true,
-            typeoflogin: 1,
+            typeoflogin: 0,
             customurlscheme: 'moodlemobile',
             default_lang: 'ru',
             forcedefaultlanguage: true,
