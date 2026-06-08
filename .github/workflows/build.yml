@@ -42,7 +42,7 @@ jobs:
           const configData = {
             app_id: 'com.moodle.moodlemobile',
             appname: 'Stoicus SDO',
-            siteurl: 'https://stoicus.ru',
+            siteurl: 'https://exam.stoicus.ru',
             onlyallowlistedsites: true,
             typeoflogin: 1,
             customurlscheme: 'stoicussdo',
