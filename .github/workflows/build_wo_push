@@ -1,0 +1,90 @@
+name: Build Android APK
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: v5.1.x
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.17.0'
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Install Global Packages (Ionic & Cordova)
+        run: |
+          npm install -g @ionic/cli cordova
+
+      - name: Install Dependencies
+        run: |
+          npm ci --no-audit
+
+      - name: Build Cordova Moodle Plugin
+        run: |
+          npm run prod --prefix cordova-plugin-moodleapp
+
+      - name: Inject Configuration via Node
+        run: |
+          node -e "
+          const fs = require('fs');
+          
+          const configData = {
+            app_id: 'com.moodle.moodlemobile',
+            appname: 'Stoicus SDO',
+            siteurl: 'https://exam.stoicus.ru',
+            onlyallowlistedsites: true,
+            typeoflogin: 0,
+            customurlscheme: 'moodlemobile',
+            default_lang: 'ru',
+            forcedefaultlanguage: true,
+            enablepushnotifications: false,
+            pushnotificationsnotifications: false,
+            demo_sites: {},
+            sites: []
+          };
+          
+          const paths = [
+            'src/assets/config.json',
+            'www/assets/config.json',
+            'moodle.config.json'
+          ];
+          
+          paths.forEach(p => {
+            const dir = p.substring(0, p.lastIndexOf('/'));
+            if (dir && !fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+            fs.writeFileSync(p, JSON.stringify(configData, null, 4), 'utf8');
+          });
+          "
+
+      - name: Run Production Web Build
+        run: |
+          npm run build:prod
+
+      - name: Initialize Cordova Android Platform
+        run: |
+          ionic cordova platform add android --no-interactive
+
+      - name: Compile Application Package
+        run: |
+          ionic cordova build android --prod --no-interactive
+
+      - name: Find and Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Stoicus-SDO-App-v5.1.x
+          path: |
+            platforms/android/app/build/outputs/apk/**/*.apk
+            platforms/android/.**/*.apk
+            **/*.apk
+          if-no-files-found: error
