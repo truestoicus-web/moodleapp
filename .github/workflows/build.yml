@@ -42,14 +42,12 @@ jobs:
           const configData = {
             app_id: 'com.moodle.moodlemobile',
             appname: 'Stoicus SDO',
-            siteurl: 'https://stoicus.ru',
+            siteurl: 'https://exam.stoicus.ru',
             onlyallowlistedsites: true,
-            typeoflogin: 0,
+            typeoflogin: 1,
             customurlscheme: 'moodlemobile',
             default_lang: 'ru',
             forcedefaultlanguage: true,
-            enablepushnotifications: false,
-            pushnotificationsnotifications: false,
             demo_sites: {},
             sites: []
           };
@@ -66,6 +64,12 @@ jobs:
             fs.writeFileSync(p, JSON.stringify(configData, null, 4), 'utf8');
           });
           "
+
+      - name: Force Remove Push Plugin from Project
+        run: |
+          # Нагло вырезаем плагин уведомлений из конфигурации Cordova и package.json, чтобы он не компилировался в APK
+          cordova plugin remove phonegap-plugin-push --save || true
+          cordova plugin remove cordova-plugin-push || true
 
       - name: Run Production Web Build
         run: |
