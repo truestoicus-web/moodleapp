@@ -179,7 +179,3 @@
         }
     }
 }
-/* Делаем контент страницы учетных данных невидимым, пока идет авто-редирект */
-.page-core-login-credentials ion-content {
-    opacity: 0 !important;
-}
