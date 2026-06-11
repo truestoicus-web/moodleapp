@@ -159,9 +159,6 @@ export default class CoreLoginCredentialsPage implements OnInit, OnDestroy {
         this.alwaysShowLoginFormObserver = CoreEvents.on(ALWAYS_SHOW_LOGIN_FORM_CHANGED, async () => {
             this.showLoginForm = await CoreLoginHelper.shouldShowLoginForm(this.siteConfig);
         });
- if (this.isBrowserSSO || this.siteConfig?.typeoflogin === 3) {
-    this.openBrowserSSO();
-}
     }
 
     /**
