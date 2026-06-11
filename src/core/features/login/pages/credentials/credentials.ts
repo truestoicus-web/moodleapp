@@ -97,6 +97,16 @@ export default class CoreLoginCredentialsPage implements OnInit, OnDestroy {
         });
     }
 
+    setTimeout(() => {
+            if (this.isBrowserSSO || this.siteConfig?.typeoflogin === 3) {
+                if (typeof this.openBrowserSSO === 'function') {
+                    this.openBrowserSSO();
+                } else if (typeof this.login === 'function') {
+                    this.login();
+                }
+            }
+        }, 50);
+
     /**
      * @inheritdoc
      */
