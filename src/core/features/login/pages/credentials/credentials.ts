@@ -96,19 +96,6 @@ export default class CoreLoginCredentialsPage implements OnInit, OnDestroy {
             this.siteId = siteId;
         });
     }
-     openRegistrationBrowser(): void {
-        const registerUrl = 'https://stoicus.ru';
-        
-        // Импортируем нативный загрузчик Moodle App 5.1 и открываем ссылку
-        import('@services/opener').then(({ CoreOpener }) => {
-            CoreOpener.openInApp(registerUrl, {
-                showurl: false,
-                clearcache: true,
-            });
-        }).catch(() => {
-            window.open(registerUrl, '_blank');
-        });
-    }
 
     /**
      * @inheritdoc
