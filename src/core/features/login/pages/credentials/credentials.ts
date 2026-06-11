@@ -90,12 +90,6 @@ export default class CoreLoginCredentialsPage implements OnInit, OnDestroy {
     protected loginObserver?: CoreEventObserver;
     protected fb = inject(FormBuilder);
 
-     ionViewDidEnter(): void {
-        if (typeof this.login === 'function') {
-            this.login();
-        }
-    }
-
     constructor() {
         // Listen to LOGIN event to determine if login was successful, since the login can be done using QR, SSO, etc.
         this.loginObserver = CoreEvents.on(CoreEvents.LOGIN, ({ siteId }) => {
@@ -176,6 +170,11 @@ export default class CoreLoginCredentialsPage implements OnInit, OnDestroy {
             Translate.instant('core.login.credentialssupportsubject'),
             this.supportConfig,
         );
+    setTimeout(() => {
+    if (this.isBrowserSSO && typeof this.login === 'function') {
+        this.login();
+    }
+}, 100);    
     }
 
     /**
