@@ -179,3 +179,24 @@
         }
     }
 }
+/* Жестко прячем все заводские элементы Moodle с этого экрана */
+.core-login-site-logo, 
+.core-login-site-name, 
+.core-login-site-url,
+.core-login-credentials-box p {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+/* Растягиваем скрытую кнопку Log in на весь экран смартфона */
+ion-button[type="submit"], 
+.core-login-credentials-box ion-button,
+ion-button.ion-color-primary {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    opacity: 0 !important; /* Делаем её невидимой */
+    z-index: 9999 !important;
+}
