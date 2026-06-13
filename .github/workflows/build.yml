@@ -71,22 +71,17 @@ jobs:
       - name: Run Production Web Build
         run: |
           npm run build:prod
-      # ... ваш шаг "Run Production Web Build" ...
-      - name: Run Production Web Build
-        run: |
-          npm run build:prod
 
-      # 👇 ВСТАВЛЯЕМ ЭТОТ НОВЫЙ ШАГ СЮДА 👇
       - name: Generate Native Icons and Splash Screens
         run: |
           npm install -g cordova-res
-          # Генерируем ресурсы для Android из папки resources/
-          cordova-res android --skip-config --copy
-      # 👆 КОНЕЦ ВСТАВКИ 👆
+          # Генерируем только иконки, чтобы пропустить жесткие требования к размеру сплэша
+          cordova-res android --skip-config --copy --type icon
 
-      - name: Initialize Cordova Android Platform
+      - name: Fix Cordova Android Folder Conflict
         run: |
-          ionic cordova platform add android --no-interactive    
+          # Сносим созданную генератором корневую папку, из-за которой падала Cordova
+          rm -rf android
 
       - name: Initialize Cordova Android Platform
         run: |
