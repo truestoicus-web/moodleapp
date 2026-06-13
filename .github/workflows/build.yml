@@ -71,6 +71,22 @@ jobs:
       - name: Run Production Web Build
         run: |
           npm run build:prod
+      # ... ваш шаг "Run Production Web Build" ...
+      - name: Run Production Web Build
+        run: |
+          npm run build:prod
+
+      # 👇 ВСТАВЛЯЕМ ЭТОТ НОВЫЙ ШАГ СЮДА 👇
+      - name: Generate Native Icons and Splash Screens
+        run: |
+          npm install -g cordova-res
+          # Генерируем ресурсы для Android из папки resources/
+          cordova-res android --skip-config --copy
+      # 👆 КОНЕЦ ВСТАВКИ 👆
+
+      - name: Initialize Cordova Android Platform
+        run: |
+          ionic cordova platform add android --no-interactive    
 
       - name: Initialize Cordova Android Platform
         run: |
