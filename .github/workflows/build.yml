@@ -49,23 +49,23 @@ jobs:
           configData.appname = 'Stoicus SDO';
           configData.siteurl = 'https://exam.stoicus.ru';
           configData.onlyallowlistedsites = true;
-          configData.typeoflogin = 0;
+          configData.typeoflogin = 1;
           configData.customurlscheme = 'moodlemobile';
           configData.default_lang = 'ru';
           configData.forcedefaultlanguage = true;
           
-          // Внедряем предопределенный сайт, чтобы приложение сразу открывало форму логина
+          // Жестко привязываем к песочнице и указываем правильный путь к логотипу в сборке
           configData.sites = [
               {
                   \"id\": \"stoicussdo\",
                   \"name\": \"Stoicus SDO\",
                   \"url\": \"https://exam.stoicus.ru\",
-                  \"logo\": \"assets/img/logo.png\"
+                  \"logo\": \"assets/img/top_logo.png\"
               }
           ];
           
           fs.writeFileSync(path, JSON.stringify(configData, null, 4), 'utf8');
-          console.log('Конфигурация moodle.config.json с предопределенным сайтом успешно записана!');
+          console.log('Конфигурация moodle.config.json успешно записана для exam.stoicus.ru!');
           "
 
       - name: Run Production Web Build
@@ -74,18 +74,18 @@ jobs:
 
       - name: Fix Cordova Android Folder Conflict
         run: |
-          # Полностью очищаем старые папки платформ, чтобы избежать конфликтов блокировок
+          # Превентивно удаляем конфликтные директории до инициализации платформы
           rm -rf android platforms/android
 
       - name: Generate Native Icons and Splash Screens
         run: |
           npm install -g cordova-res
-          # Генерируем ассеты и прописываем новые пути в config.xml без флага копирования
+          # Нарезаем ресурсы локально, утилита сама обновит config.xml ссылками на сплэши
           cordova-res android
 
       - name: Initialize Cordova Android Platform
         run: |
-          # При добавлении платформы Cordova сама скопирует файлы на основе путей из config.xml
+          # Разворачиваем нативную платформу. Cordova сама затянет файлы по ссылкам из config.xml
           ionic cordova platform add android --no-interactive
 
       - name: Compile Application Package
