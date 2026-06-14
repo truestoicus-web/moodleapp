@@ -1,9 +1,9 @@
 {
-    "filtersapplied": "There may be filters applied to this view. To edit filters or change the sorting order, <a href=\"{{$a}}\">open this report on your browser.</a>",
-    "hidecolumns": "Hide columns",
-    "modifiedby": "Modified by",
-    "reports": "Reports",
-    "reportsource": "Report source",
-    "showcolumns": "Show columns",
-    "timecreated": "Time created"
+    "filtersapplied": "К этому представлению могут быть применены фильтры. Чтобы изменить фильтры или порядок сортировки, <a href=\"{{$a}}\">откройте этот отчет в браузере.</a>",
+    "hidecolumns": "Скрыть столбцы",
+    "modifiedby": "Изменено пользователем",
+    "reports": "Отчеты",
+    "reportsource": "Источник отчета",
+    "showcolumns": "Показать столбцы",
+    "timecreated": "Время создания"
 }
