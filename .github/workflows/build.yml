@@ -1,4 +1,4 @@
-name: Build Android APK
+ame: Build Android APK
 on:
   workflow_dispatch:
 
@@ -72,20 +72,20 @@ jobs:
         run: |
           npm run build:prod
 
-      - name: Generate Native Icons and Splash Screens
-        run: |
-          npm install -g cordova-res
-          # Генерируем ассеты и автоматически прописываем их пути в config.xml
-          cordova-res android
-
       - name: Fix Cordova Android Folder Conflict
         run: |
-          # Сносим созданную генератором корневую папку, из-за которой падала Cordova
-          rm -rf android
+          # Превентивно удаляем конфликтные директории до инициализации платформы
+          rm -rf android platforms/android
 
       - name: Initialize Cordova Android Platform
         run: |
           ionic cordova platform add android --no-interactive
+
+      - name: Generate Native Icons and Splash Screens
+        run: |
+          npm install -g cordova-res
+          # Генерируем ресурсы строго внутрь готовой платформы Cordova с копированием ассетов
+          cordova-res android --copy
 
       - name: Compile Application Package
         run: |
