@@ -75,8 +75,8 @@ jobs:
       - name: Generate Native Icons and Splash Screens
         run: |
           npm install -g cordova-res
-          # Генерируем и иконки, и сплэш-скрины из ваших ресурсов
-          cordova-res android --skip-config --copy
+          # Генерируем ассеты и автоматически прописываем их пути в config.xml
+          cordova-res android
 
       - name: Fix Cordova Android Folder Conflict
         run: |
