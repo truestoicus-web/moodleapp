@@ -47,7 +47,7 @@ jobs:
           
           configData.app_id = 'com.moodle.moodlemobile';
           configData.appname = 'Stoicus SDO';
-          configData.siteurl = 'https://stoicus.ru';
+          configData.siteurl = 'https://exam.stoicus.ru';
           configData.onlyallowlistedsites = true;
           configData.typeoflogin = 0;
           configData.customurlscheme = 'moodlemobile';
@@ -59,7 +59,7 @@ jobs:
               {
                   \"id\": \"stoicussdo\",
                   \"name\": \"Stoicus SDO\",
-                  \"url\": \"https://stoicus.ru\",
+                  \"url\": \"https://exam.stoicus.ru\",
                   \"logo\": \"assets/img/logo.png\"
               }
           ];
