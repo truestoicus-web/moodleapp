@@ -1,8 +1,8 @@
 {
-    "chooseaccount": "Choose account",
-    "chooseaccounttoopenlink": "Choose an account to open the link with.",
-    "confirmurlothersite": "This link belongs to another site. Do you want to open it?",
-    "errornoactions": "Couldn't find an action to perform with this link.",
-    "errornosites": "Couldn't find any site to handle this link.",
-    "errorredirectothersite": "The redirect URL cannot point to a different site."
+    "chooseaccount": "Выберите учетную запись",
+    "chooseaccounttoopenlink": "Выберите учетную запись для открытия ссылки.",
+    "confirmurlothersite": "Эта ссылка принадлежит другому сайту. Вы хотите открыть ее?",
+    "errornoactions": "Не удалось найти действие для выполнения с этой ссылкой.",
+    "errornosites": "Не удалось найти сайт для обработки этой ссылки.",
+    "errorredirectothersite": "URL-адрес перенаправления не может указывать на другой сайт."
 }
