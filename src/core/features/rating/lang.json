@@ -1,10 +1,10 @@
 {
-    "aggregateavg": "Average of ratings",
-    "aggregatecount": "Count of ratings",
-    "aggregatemax": "Maximum rating",
-    "aggregatemin": "Minimum rating",
-    "aggregatesum": "Sum of ratings",
-    "noratings": "No ratings submitted",
-    "rating": "Rating",
-    "ratings": "Ratings"
+    "aggregateavg": "Средняя оценка",
+    "aggregatecount": "Количество оценок",
+    "aggregatemax": "Максимальная оценка",
+    "aggregatemin": "Минимальная оценка",
+    "aggregatesum": "Сумма оценок",
+    "noratings": "Оценки отсутствуют",
+    "rating": "Оценка",
+    "ratings": "Оценки"
 }
