@@ -72,6 +72,42 @@ jobs:
         run: |
           npm run build:prod
 
+      - name: Overwrite Android Vector Splash Screen
+        run: |
+          node -e "
+          const fs = require('fs');
+          const xmlPath = 'resources/android/android-splash.xml';
+          
+          // Создаем минималистичный векторный сплэш:
+          // Фон — чистый белый (или замени #FFFFFF на цвет твоей школы)
+          // По центру рендерится аккуратный минималистичный круг или квадрат, пока грузится приложение
+          const customXml = \`<?xml version=\"1.0\" encoding=\"utf-8\"?>
+          <vector xmlns:android=\"http://schemas.android.com/apk/res/android\"
+              android:width=\"108dp\"
+              android:height=\"108dp\"
+              android:viewportWidth=\"108\"
+              android:viewportHeight=\"108\">
+              
+              <!-- Фоновая подложка иконки сплэша (круг бренда) -->
+              <path
+                  android:fillColor=\"#2A2E3D\" 
+                  android:pathData=\"M54,54m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0\" />
+                  
+              <!-- Внутренняя геометрия (минималистичная заглушка, пока не подгрузился основной интерфейс) -->
+              <path
+                  android:fillColor=\"#FFFFFF\"
+                  android:pathData=\"M45,35 L63,35 L63,45 L45,45 Z M45,55 L63,55 L63,73 L45,73 Z\" />
+          </vector>\`;
+          
+          // Проверяем существование папки и пишем файл
+          if (!fs.existsSync('resources/android')) {
+              fs.mkdirSync('resources/android', { recursive: true });
+          }
+          
+          fs.writeFileSync(xmlPath, customXml, 'utf8');
+          console.log('Оранжевый вектор Moodle успешно уничтожен и заменен брендовым XML!');
+          "
+
       - name: Fix Cordova Android Folder Conflict
         run: |
           # Превентивно удаляем конфликтные директории до инициализации платформы
@@ -80,12 +116,10 @@ jobs:
       - name: Generate Native Icons and Splash Screens
         run: |
           npm install -g cordova-res
-          # Нарезаем ресурсы локально, утилита сама обновит config.xml ссылками на сплэши
           cordova-res android
 
       - name: Initialize Cordova Android Platform
         run: |
-          # Разворачиваем нативную платформу. Cordova сама затянет файлы по ссылкам из config.xml
           ionic cordova platform add android --no-interactive
 
       - name: Compile Application Package
