@@ -1,4 +1,4 @@
-ame: Build Android APK
+name: Build Android APK
 on:
   workflow_dispatch:
 
@@ -47,7 +47,7 @@ jobs:
           
           configData.app_id = 'com.moodle.moodlemobile';
           configData.appname = 'Stoicus SDO';
-          configData.siteurl = 'https://exam.stoicus.ru';
+          configData.siteurl = 'https://stoicus.ru';
           configData.onlyallowlistedsites = true;
           configData.typeoflogin = 0;
           configData.customurlscheme = 'moodlemobile';
@@ -59,7 +59,7 @@ jobs:
               {
                   \"id\": \"stoicussdo\",
                   \"name\": \"Stoicus SDO\",
-                  \"url\": \"https://exam.stoicus.ru\",
+                  \"url\": \"https://stoicus.ru\",
                   \"logo\": \"assets/img/logo.png\"
               }
           ];
@@ -74,18 +74,19 @@ jobs:
 
       - name: Fix Cordova Android Folder Conflict
         run: |
-          # Превентивно удаляем конфликтные директории до инициализации платформы
+          # Полностью очищаем старые папки платформ, чтобы избежать конфликтов блокировок
           rm -rf android platforms/android
-
-      - name: Initialize Cordova Android Platform
-        run: |
-          ionic cordova platform add android --no-interactive
 
       - name: Generate Native Icons and Splash Screens
         run: |
           npm install -g cordova-res
-          # Генерируем ресурсы строго внутрь готовой платформы Cordova с копированием ассетов
-          cordova-res android --copy
+          # Генерируем ассеты и прописываем новые пути в config.xml без флага копирования
+          cordova-res android
+
+      - name: Initialize Cordova Android Platform
+        run: |
+          # При добавлении платформы Cordova сама скопирует файлы на основе путей из config.xml
+          ionic cordova platform add android --no-interactive
 
       - name: Compile Application Package
         run: |
