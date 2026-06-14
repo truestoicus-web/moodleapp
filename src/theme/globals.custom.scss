@@ -3,3 +3,18 @@
  * ----------------------------------------------------------------------------
  * Place here all custom app variables.
  */
+/* Перекрашиваем кнопку входа в синий бренд СДО */
+.core-login-credentials button[type="submit"],
+ion-button.core-login-login-button,
+.button-solid {
+    --background: #0056b3 !important;
+    --background-activated: #004085 !important;
+    --background-focused: #004085 !important;
+    color: #ffffff !important;
+}
+
+/* Ссылки "Забыли пароль?" делаем синими */
+.core-login-credentials ion-item a,
+.core-login-lost-password-button {
+    color: #0056b3 !important;
+}
