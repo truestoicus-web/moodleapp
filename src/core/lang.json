@@ -97,7 +97,7 @@
     "dismiss": "Отклонить",
     "displayoptions": "Параметры отображения",
     "done": "Готово",
-    "dontshowagain": "Больше не показывать."
+    "dontshowagain": "Больше не показывать.",
      "download": "Скачать",
     "downloaded": "Скачано",
     "downloadfile": "Скачать файл",
@@ -197,7 +197,7 @@
     "mod_choice": "Опрос",
     "mod_data": "База данных",
     "mod_external-tool": "Внешний инструмент",
-    "mod_feedback": "Обратная связь"
+    "mod_feedback": "Обратная связь",
     "mod_file": "Файл",
     "mod_folder": "Папка",
     "mod_forum": "Форум",
