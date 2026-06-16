@@ -1,9 +1,9 @@
 {
     "app_id": "com.moodle.moodlemobile",
-    "appname": "Stoicus SDO",
-    "siteurl": "https://exam.stoicus.ru",
+    "appname": "SdavalkA!",
+    "siteurl": "https://sdavalka.ru",
     "onlyallowlistedsites": true,
-    "customurlscheme": "stoicussdo",
+    "customurlscheme": "sdavalka",
     "default_lang": "ru",
     "forcedefaultlanguage": true,
     "demo_sites": {},
