@@ -46,8 +46,8 @@ jobs:
           }
           
           configData.app_id = 'com.moodle.moodlemobile';
-          configData.appname = 'Stoicus SDO';
-          configData.siteurl = 'https://exam.stoicus.ru';
+          configData.appname = 'SdavalkA!';
+          configData.siteurl = 'https://sdavalka.ru';
           configData.onlyallowlistedsites = true;
           configData.typeoflogin = 1;
           configData.customurlscheme = 'moodlemobile';
@@ -57,15 +57,15 @@ jobs:
           // Жестко привязываем к песочнице и указываем правильный путь к логотипу в сборке
           configData.sites = [
               {
-                  \"id\": \"stoicussdo\",
-                  \"name\": \"Stoicus SDO\",
-                  \"url\": \"https://exam.stoicus.ru\",
+                  \"id\": \"sdavalka\",
+                  \"name\": \"SdavalkA!\",
+                  \"url\": \"https://sdavalka.ru\",
                   \"logo\": \"assets/img/top_logo.png\"
               }
           ];
           
           fs.writeFileSync(path, JSON.stringify(configData, null, 4), 'utf8');
-          console.log('Конфигурация moodle.config.json успешно записана для exam.stoicus.ru!');
+          console.log('Конфигурация moodle.config.json успешно записана для sdavalka.ru!');
           "
 
       - name: Run Production Web Build
